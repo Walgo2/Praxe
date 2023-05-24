@@ -1,0 +1,31 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'PRAXE_ACTIVE(1)(7a784edb-59ca-4a6d-acd4-3c5e5882392f)'
+    subscriptionId: '7a784edb-59ca-4a6d-acd4-3c5e5882392f'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'RG_PRAXE_SCRIPT'
+    location: 'UK South'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://github.com/Walgo2/Praxe/blob/main/VM013/template-moznafunkcni.json'
+    csmParametersFileLink: 'https://github.com/Walgo2/Praxe/blob/main/VM013/parametersFile-moznafunkcni.json'
+    deploymentMode: 'Incremental'
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
